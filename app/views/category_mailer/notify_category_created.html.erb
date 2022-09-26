@@ -1,0 +1,26 @@
+ <h1>Category Created Notification</h1>
+<p>
+  New Category has been created. Please check the details below
+</p>
+<table>
+  <tr>
+    <td>Name:</td>
+    <td><%= @category.name %></td>
+  </tr>
+  <tr>
+    <td>Code:</td>
+    <td><%= @category.code %></td>
+  </tr>
+  <tr>
+    <td>IsActive:</td>
+    <td><%= @category.is_active %></td>
+  </tr>  
+  <tr>
+    <td>CreatedAt:</td>
+    <td><%= @category.created_at %></td>
+  </tr>  
+</table>
+<p>
+  To login to the site, just follow this link: <%= @url %>.
+</p>
+<p>Thanks for joining and have a great day!</p>

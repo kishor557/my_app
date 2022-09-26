@@ -1,0 +1,36 @@
+<h4>Profile </h4>
+<%= p.fields_for :profile do |p| %>
+
+  <div class="field">
+    <%= p.label :full_name %><br />
+    <%= p.text_field :full_name %>
+  </div>
+  
+    <div class="field">
+    <%= p.label :phone %><br />
+    <%= p.text_field :phone %>
+  </div>
+  
+    <div class="field">
+    <%= p.label :address %><br />
+    <%= p.text_field :address %>
+  </div>
+  
+    <div class="field">
+    <%= p.label :pin_code %><br />
+    <%= p.text_field :pin_code %>
+  </div>
+  
+      <div class="field">
+    <%= p.label :picture %><br />
+    <%=	link_to url_for(p.object.picture), url_for(p.object.picture), target: '_blank' %>
+    <br>
+    <%= link_to 'Download Image', rails_blob_path(p.object.picture, disposition: "attachment"), target: '_blank' %>
+<br>
+
+    <%= image_tag p.object.picture, width: '250' %>
+
+    <%= p.file_field :picture %>
+  </div>
+
+<% end %>

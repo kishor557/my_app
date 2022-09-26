@@ -1,0 +1,70 @@
+<div id="<%= dom_id listing %>">
+  <p>
+    <strong>Name:</strong>
+    <%= listing.name %>
+  </p>
+
+  <p>
+    <strong>Price:</strong>
+    <%= listing.price %>
+  </p>
+
+  <p>
+    <strong>Address:</strong>
+    <%= listing.address %>
+  </p>
+
+  <p>
+    <strong>Pin code:</strong>
+    <%= listing.pin_code %>
+  </p>
+
+  <p>
+    <strong>Phone:</strong>
+    <%= listing.phone %>
+  </p>
+
+  <p>
+    <strong>Description:</strong>
+    <%= listing.description %>
+  </p>
+
+  <p>
+    <strong>Category:</strong>
+    <%= link_to listing.category.name, category_path(listing.category.id) %>
+  </p>
+  
+    <br>
+  <h4>Images:</h4>
+  <% listing.listing_images.each do |img| %>
+    <%= image_tag img, width: '200' %>
+  <% end %>
+    <br>  <br>
+  <h4>Features</h4>
+  <ul>
+    <% listing.features.each do |f| %>
+      <li><%= link_to f.name, feature_path(f) %></li>
+    <% end %>
+  </ul>
+  
+  <br>
+  <h4>Comments:</h4>
+  <ul>
+    <% listing.comments.each do |c| %>
+      <li>
+         <b><%= c.content %></b> by <%= (c.user.profile&.full_name || c.user.email) %><br>
+         <span style='font-size:12px'><%= c.created_at %></span>
+        </li>
+    <% end %>
+  </ul>
+  <%= form_with model: Comment.new, url: listing_comments_path(listing) do |f| %>
+  <p>
+      <%= f.hidden_field :user_id, value: current_user.id %>
+      <%= f.label :content %>
+      <%= f.text_field :content %>
+  </p>
+  <p>
+  <%= f.submit "SAVE" %>
+<% end %>
+  
+</div>

@@ -1,0 +1,64 @@
+<%= form_with(model: listing) do |form| %>
+  <% if listing.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(listing.errors.count, "error") %> prohibited this listing from being saved:</h2>
+
+      <ul>
+        <% listing.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :category_id, style: "display: block" %>
+    <%= form.select :category_id, options_for_select(Category.active.map {|i| [i.name, i.id] }), prompt: 'Select Category' %>
+  </div>
+
+  <div>
+    <%= form.label :price, style: "display: block" %>
+    <%= form.text_field :price %>
+  </div>
+
+  <div>
+    <%= form.label :address, style: "display: block" %>
+    <%= form.text_area :address %>
+  </div>
+
+  <div>
+    <%= form.label :pin_code, style: "display: block" %>
+    <%= form.text_field :pin_code %>
+  </div>
+
+  <div>
+    <%= form.label :phone, style: "display: block" %>
+    <%= form.text_field :phone %>
+  </div>
+
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.text_area :description %>
+  </div>
+  
+  <div>
+    <%= form.label :listing_images, style: "display: block" %>
+    <%= form.file_field :listing_images, multiple: true %>
+  </div>
+
+
+  <h4> Features </h4>
+  <%= form.collection_check_boxes :feature_ids, Feature.all, :id, :name %>
+  <br><br>
+  <%#= form.collection_select :feature_ids, Feature.all, :id, :name, { :prompt => "Please select"}, { :multiple => true, :size => 5 } %>
+
+<br>
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

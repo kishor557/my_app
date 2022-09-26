@@ -1,0 +1,53 @@
+<p>
+  <b>Name:</b>
+  <%= @category.name %>
+</p>
+<p>
+  <b>Code:</b>
+  <%= @category.code %>
+</p>
+<p>
+  <b>Is active:</b>
+  <%= @category.is_active %>
+</p>
+
+<p>
+  <b>Image:</b>
+  <%= image_tag @category.image, width: '200' %>
+</p>
+
+
+<h4>Listings</h4>
+<ul>
+<% @category.listings.each do |listing| %>
+    <li>
+      <%= link_to listing.name, listing_path(listing.id) %> - <%= listing.price %>
+    </li>
+<% end %>
+</ul>
+
+<br>
+<h4>Comments:</h4>
+<ul>
+  <% @category.comments.each do |c| %>
+    <li>
+       <b><%= c.content %></b> by <%= (c.user.profile&.full_name || c.user.email) %><br>
+       <span style='font-size:12px'><%= c.created_at %></span>
+      </li>
+  <% end %>
+</ul>
+<%= form_with model: Comment.new, url: category_comments_path(@category) do |f| %>
+  <p>
+      <%= f.hidden_field :user_id, value: current_user.id %>
+      <%= f.label :content %>
+      <%= f.text_field :content %>
+  </p>
+  <p>
+  <%= f.submit "SAVE" %>
+<% end %>
+
+<br><br>
+<%= link_to 'Edit', edit_category_path(@category) %>
+|
+<%= link_to 'Back', categories_path %>
+

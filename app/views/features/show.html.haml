@@ -1,0 +1,18 @@
+%p
+  %b Name:
+  = @feature.name
+%p
+  %b Description:
+  = @feature.description
+%p
+  %b Is active:
+  = @feature.is_active
+%br
+  %h4 Listings
+  %ul
+    - @feature.listings.each do |l|
+      %li= link_to l.name, listing_path(l)
+%br
+= link_to 'Edit', edit_feature_path(@feature)
+\|
+= link_to 'Back', features_path

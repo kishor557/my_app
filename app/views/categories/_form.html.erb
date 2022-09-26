@@ -1,0 +1,46 @@
+<%#= form_for @category do |f| %>
+
+<h3><%= test_var %></h1>
+
+<%= form_with model: @category, id: 'IDDDD', class: 'CLSSS', data: {turbo: false} do |f| %>
+
+  <% if @category.errors.any? %>
+      <div id="error_explanation"> 
+        <h2>
+          <%= pluralize(@category.errors.count, "error") %>
+              prohibited this product from being saved:
+        </h2>
+        <ul>
+          <%- @category.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+     </div>
+   <% end %>
+
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :code %>
+    <%= f.text_field :code %>
+  </div>
+  <div class="field">
+    <%= f.label 'Re-enter Code' %>
+    <%= f.text_field :code_confirmation %>
+  </div>
+  <div class="field">
+    <%= f.label :is_active %>
+    <%= f.check_box :is_active %>
+  </div>
+  
+    <div class="field">
+    <%= f.label :image %>
+    <%= f.file_field :image %>
+  </div>
+  <div class="actions">
+    <%= f.submit 'Save' %>
+  </div>
+<% end %>

@@ -1,0 +1,85 @@
+<h1>Listing Categories</h1>
+
+<%= form_tag categories_path, method: "GET" do %>
+  <div>
+    <%= label_tag "controller_name" %>
+    <%= text_field_tag "path[controller_name]" %>
+    <br/>
+    <%= label_tag "area" %>
+    <%= text_area_tag "path[area]", '', rows: "2", cols: "40" %>
+    <br/>
+    <%= label_tag "Number1" %>
+    <%= number_field_tag "path[number1]" %>
+    <br/>
+        <%= label_tag "Number" %>
+    <%= number_field_tag "path[number]", nil, step: 0.5 %>
+    <br/>
+        <%= label_tag "Drop" %>
+    <%= select_tag "path[drop]", options_for_select([["one", 1], ["two", 2]]) %>
+    <br/>
+        <%= label_tag "Gender" %>
+    <%= radio_button_tag "path[gender]", "male" %>
+    Male
+    <%= radio_button_tag "path[gender]", "female" %>
+    Female
+    <br/>
+        <%= label_tag "Terms and conditions" %>
+    <%= check_box_tag "path[terms]" %>
+    <br>
+    <%= submit_tag "Save" %>
+  </div>
+<% end %>
+
+<br><br>
+<%= form_with url: categories_path, method: :get do |form| %>
+  <%= form.text_field :q, value: (params[:q] || nil) %>
+  <%= form.submit 'Search' %>
+  <%= link_to 'Clear', categories_path %>
+<% end %>
+
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Code</th>
+      <th>Is active</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @categories.each do |abc| %>
+      <tr>
+        <td>
+          <%= abc.name %>
+        </td>
+        <td>
+          <%= abc.code %>
+        </td>
+        <td>
+          <%= abc.is_active %>
+        </td>
+        <td>
+          <%= link_to 'Show', category_path(abc) %>
+          |
+          <%= link_to 'View Category', view_category_category_path(abc) %>
+        </td>
+        <td>
+          <%= link_to 'Edit', edit_category_path(abc) %>
+        </td>
+        <td>
+          <%= link_to 'Destroy', category_path(abc), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+        </td>
+      </tr>
+    <% end %>
+    <br>    
+  </tbody>
+</table>
+<%= will_paginate @categories %>
+<br/>
+
+<%= link_to 'New Category', new_category_path %>
+<%= link_to 'Download File', download_file_categories_path, target: '_blank' %>
+<br/><br/>
