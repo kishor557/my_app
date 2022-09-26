@@ -41,7 +41,5 @@ RSpec.describe Category, type: :model do
         expect(category1.code).to_not eq('TESTCODE')
       end
     end
-    
   end
-  
 end
